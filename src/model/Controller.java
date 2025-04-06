@@ -15,8 +15,12 @@ public class Controller {
         return miJugadorHumano.addBarco(x, y, horientacion, tipoBarco);
     }
 
-    public void ataqueHumano(int x, int y){
-        miJugadorMaquina.ataque(x, y);
+    public String ataqueHumano(int x, int y){
+        return miJugadorMaquina.ataque(x, y);
+    }
+    
+    public String ataqueMaquina() {
+        return miJugadorHumano.ataqueMaquina();
     }
 
     public void colocarBarcoMaquina(TipoBarco tipoBarco, boolean orientacionFija){

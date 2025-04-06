@@ -21,27 +21,45 @@ public class Tablero {
         }
     }
 
-    public void recibirAtaque(int x, int y) {
-        if (tablero[y][x] == 1) { 
+    public String maquinaRecibe(int x, int y) {
+        if (tablero[y][x] == 1) {
             tablero[y][x] = 2;
-            System.out.println("¡Le has dado a un objetivo enemigo!");
-    
-            
             for (Barco barco : barcos) {
                 if (barco.estaHundido(tablero)) {
                     for (int[] c : barco.getCoordenadas()) {
-                        tablero[c[1]][c[0]] = 3; 
+                        tablero[c[1]][c[0]] = 3;
                     }
-                    System.out.println("¡Hundiste el barco " + barco.getTipoBarco() + "!");
+                    return "¡Hundiste el barco " + barco.getTipoBarco() + "!";
                 }
             }
-
+            return "¡Le has dado a un objetivo enemigo!";
         } else {
-            System.out.println("¡No hay nada alli! ");
+            return "¡No hay nada allí!";
         }
     }
 
+    public boolean evaluarFinPartida(){
+        return true; 
+    }
+
+    public String humanoRecibe(int x, int y) {
+        if (tablero[y][x] == 1) {
+            tablero[y][x] = 2;
+            for (Barco barco : barcos) {
+                if (barco.estaHundido(tablero)) {
+                    for (int[] c : barco.getCoordenadas()) {
+                        tablero[c[1]][c[0]] = 3;
+                    }
+                    return "¡Te hundieron el barco " + barco.getTipoBarco() + "!";
+                }
+            }
+            return "¡Te han dado!";
+        } else {
+            return "¡No hay nada allí!";
+        }
+    }
     
+
 
     public void addBarco(Barco barco){
         barcos.add(barco);

@@ -6,6 +6,7 @@ public class Barco {
     private int columna;
     private boolean  orientacion;
     private int[][] coordenadas;
+    private boolean hundido = false;
 
     public Barco(int columna, int fila, TipoBarco tipoBarco, boolean orientacion){
         this.tipoBarco = tipoBarco;
@@ -28,14 +29,18 @@ public class Barco {
     }
     // true = horizontal || false = vertical
 
-    public boolean estaHundido(int[][] tablero){
-        for(int[] c: coordenadas){
-            int col = c[0];
-            int fil = c[1];
-            if (tablero[fil][col] != 2 && tablero[fil][col] != 3){
+    public boolean estaHundido(int[][] tablero) {
+        if (hundido) return false; 
+    
+        for (int[] c : coordenadas) {
+            int x = c[0];
+            int y = c[1];
+            if (tablero[y][x] != 2) {
                 return false;
             }
         }
+    
+        hundido = true; 
         return true;
     }
 

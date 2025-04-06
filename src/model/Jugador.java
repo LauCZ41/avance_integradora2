@@ -48,18 +48,18 @@ public class Jugador{
     }
 
 
-    public void ataque(int x, int y){
-        myTablero.recibirAtaque(x, y);
+    public String ataque(int x, int y){
+        return myTablero.maquinaRecibe(x, y);
     }
 
     
-    public int[] ataqueMaquina(){
-        int x,y;
-        x=random.nextInt(10);
-        y=random.nextInt(10);
+    public String ataqueMaquina() {
+    int x = random.nextInt(10);
+    int y = random.nextInt(10);
+    String resultado = myTablero.humanoRecibe(x, y);
+    return "La máquina atacó en (" + (x + 1) + ", " + (y + 1) + "): " + resultado;
+}
 
-        return new int[]{x,y};
-    }
 
 
     public void getPosT(){

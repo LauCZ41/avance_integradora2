@@ -77,6 +77,10 @@ public class Ejecutable {
         do { 
             ataqueHumano();
             myController.mostrarBarcosAtacados();
+            ataqueMaquina();
+            System.out.println("Finalmente la disposición de tu tablero con tus barcos queda asi:");
+            myController.mostrarTablero();
+
         } while (true);
     }
 
@@ -146,7 +150,13 @@ public class Ejecutable {
                 System.out.println("Erro, coordenada fuera del tablero, intente de nuevo");
             }
         } while (y<0 || y>10);
-        myController.ataqueHumano(x, y);
+        String mensaje = myController.ataqueHumano(x, y);
+        System.out.println(mensaje);
+    }
+
+    public static void ataqueMaquina(){
+        String mensaje = myController.ataqueMaquina();
+        System.out.println(mensaje);
     }
       
 }
