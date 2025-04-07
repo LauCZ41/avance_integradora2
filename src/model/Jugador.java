@@ -54,12 +54,15 @@ public class Jugador{
 
     
     public String ataqueMaquina() {
-    int x = random.nextInt(10);
-    int y = random.nextInt(10);
-    String resultado = myTablero.humanoRecibe(x, y);
-    return "La máquina atacó en (" + (x + 1) + ", " + (y + 1) + "): " + resultado;
-}
+        int x = random.nextInt(10);
+        int y = random.nextInt(10);
+        String resultado = myTablero.humanoRecibe(x, y);
+        return "La máquina atacó en (" + (x + 1) + ", " + (y + 1) + "): " + resultado;
+    }
 
+    public boolean evaluarFinPartida(){
+        return myTablero.evaluarFinPartida();
+    }
 
 
     public void getPosT(){
@@ -74,6 +77,10 @@ public class Jugador{
         myTablero.inicializarTablero();
     }
 
+    public void aumentarPartidasGanadas(){
+        partidasGanadas++;
+    }
+
     //get 
     public String getNombre(){
         return nombre;
@@ -84,8 +91,6 @@ public class Jugador{
     public Tablero getTablero() {
         return this.myTablero;
     }
-
-
     //set
     public void setNombre(String newNombre){
         nombre=newNombre;

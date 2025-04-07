@@ -26,7 +26,7 @@ public class Ejecutable {
                     break;
                 case 2: partidaEstandar();
                     break;
-                case 3: //verRegistro()
+                case 3: mostrarPartidasGanadas();
                     break;
                 case 4: 
                     System.out.println("Gracias por jugar <3");
@@ -74,14 +74,23 @@ public class Ejecutable {
         System.out.println("   ");
         myController.mostrarTableroMaquina();
         System.out.println("¡Muy bien! ¡Ahora vamos a jugar! ");
+        boolean juegoTerminado = false;
         do { 
             ataqueHumano();
-            myController.mostrarBarcosAtacados();
-            ataqueMaquina();
-            System.out.println("Finalmente la disposición de tu tablero con tus barcos queda asi:");
-            myController.mostrarTablero();
-
-        } while (true);
+            juegoTerminado = evaluarFinPartida();
+        
+            if (!juegoTerminado) {
+                myController.mostrarBarcosAtacados();
+                ataqueMaquina();
+                juegoTerminado = evaluarFinPartida();
+        
+                if (!juegoTerminado) {
+                    System.out.println("Finalmente la disposición de tu tablero con tus barcos queda asi:");
+                    myController.mostrarTablero();
+                }
+            }
+        
+        } while (!juegoTerminado);
     }
 
     public static void partidaPersonalizada(){
@@ -159,5 +168,22 @@ public class Ejecutable {
         System.out.println(mensaje);
     }
       
+
+    public static boolean evaluarFinPartida(){
+        if(myController.evaluarFinPartida()){
+            System.out.println("La partida ha finalizado");
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void mostrarPartidasGanadas(){
+        if (myController == null) {
+            System.out.println("Aun no has iniciado ninguna partida.");
+        } else {
+            System.out.println(myController.mostrarPartidasGanadas());
+        }
+    }
 }
 

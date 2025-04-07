@@ -31,6 +31,23 @@ public class Controller {
         miJugadorMaquina.mostrarBarcosAtacados();
     }
 
+    public String mostrarPartidasGanadas() {
+        return miJugadorHumano.getNombre() + " ha ganado " + miJugadorHumano.getPartidasGanadas() + " partida(s).\n"
+             + miJugadorMaquina.getNombre() + " ha ganado " + miJugadorMaquina.getPartidasGanadas() + " partida(s).";
+    }
+    
+
+    public boolean evaluarFinPartida(){
+        if(miJugadorHumano.evaluarFinPartida()){
+            miJugadorMaquina.aumentarPartidasGanadas();
+            return true;
+        } else if(miJugadorMaquina.evaluarFinPartida()){
+            miJugadorHumano.aumentarPartidasGanadas();
+            return true;
+        }
+        return false;
+    }
+
     public void inicializarTablero() {
         miJugadorHumano.inicializarTablero();
         miJugadorMaquina.inicializarTablero();

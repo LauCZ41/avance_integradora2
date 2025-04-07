@@ -39,7 +39,18 @@ public class Tablero {
     }
 
     public boolean evaluarFinPartida(){
-        return true; 
+        int contador = 0;
+        for(int i = 0; i<TAMANO; i++){
+            for(int j = 0; j <TAMANO; j++){
+                if(tablero[i][j] == 3){
+                    contador++;
+                }
+            }
+        }
+        if(contador>=18){
+            return true;
+        }
+        return false; 
     }
 
     public String humanoRecibe(int x, int y) {
