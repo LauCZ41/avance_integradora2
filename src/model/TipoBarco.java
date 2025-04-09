@@ -7,7 +7,7 @@ public enum  TipoBarco {
     MUNICION(3),
     GUERRA(4),
     PORTAVIONES(5);
-
+    
     private final int largoBarco;
 
     TipoBarco(int largoBarco){

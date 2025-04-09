@@ -72,7 +72,7 @@ public class Ejecutable {
         myController.colocarBarcoMaquina(TipoBarco.GUERRA, true);
         myController.colocarBarcoMaquina(TipoBarco.PORTAVIONES, false);
         System.out.println("   ");
-        myController.mostrarTableroMaquina();
+        //myController.mostrarTableroMaquina();
         System.out.println("¡Muy bien! ¡Ahora vamos a jugar! ");
         boolean juegoTerminado = false;
         do { 
@@ -96,8 +96,28 @@ public class Ejecutable {
     public static void partidaPersonalizada(){
         System.out.println("Ingresa tu nombre ");
         String nombre = reader.nextLine();
-        
         myController  = new Controller(nombre);
+        myController.inicializarTablero();
+
+        int cantidadDeBarcos = 0;
+        int contador = 0;
+        do { 
+            System.out.println("¿Con cuantos barcos quieres jugar? (5 max)");
+            cantidadDeBarcos = reader.nextInt();
+            if(cantidadDeBarcos > 5 || cantidadDeBarcos<1){
+                System.out.println("Error, cantidad no valida");
+            }
+        } while (cantidadDeBarcos > 5 || cantidadDeBarcos<1);
+        do{
+            preguntarBarcoPersonalizado(contador);
+            myController.mostrarTablero();
+            System.out.println(" ");
+            myController.mostrarTableroMaquina();
+            contador++;
+        }while(cantidadDeBarcos>contador);
+
+        
+       
     }
 
 
@@ -111,13 +131,13 @@ public class Ejecutable {
         do { 
             do { 
                 System.out.println(" Ingresa la coordenada X de " + tipoBarco + " (1-10): ");
-                fila = reader.nextInt();
-            } while (fila < 1 || fila > 10); 
-            do { 
-                System.out.println(" Ingresa la coordenada Y de " + tipoBarco + " (1-10): ");
                 col = reader.nextInt();
             } while (col < 1 || col > 10);
-
+            do { 
+    
+                System.out.println(" Ingresa la coordenada Y de " + tipoBarco + " (1-10): ");
+                fila = reader.nextInt();
+            } while (fila < 1 || fila > 10); 
             barcoColocado = myController.colocarBarcoHumano(fila - 1, col - 1, orientacion, tipoBarco);
     
             if (!barcoColocado) {
@@ -138,6 +158,48 @@ public class Ejecutable {
                 }
             }
         } while (!barcoColocado);  
+    }
+
+    public static void preguntarBarcoPersonalizado(int i){
+        int longitudBarco = 0;
+        int codigoOrientacion=0;
+        boolean orientacion;
+        boolean barcoColocado = false;
+        int x, y;
+        do{
+            do { 
+                System.out.println(" Ingrese la loongitud de su barco personalizado "+(i+1)+" (max 5 casillas)");
+                longitudBarco = reader.nextInt();
+                if(longitudBarco<1|| longitudBarco>5){
+                    System.out.println("la longitud del barco tiene que ser mayor a 0 y menor o igual 5 ");
+                }
+            } while (longitudBarco<1 || longitudBarco>5);
+            do { 
+                System.out.println("Ingrese la orientacion de su barco "+(i+1)+", 1 para horizontal y 2 para vertical");
+                codigoOrientacion = reader.nextInt();
+                if(codigoOrientacion!=1 && codigoOrientacion!=2){
+                    System.out.println("Numero no valido");
+                }
+                if(codigoOrientacion == 1){
+                    orientacion = true;
+                } else{
+                    orientacion = false;
+                }
+            } while (codigoOrientacion<0 || codigoOrientacion>3);
+            do { 
+                System.out.println(" Ingresa la coordenada X (1-10): ");
+                x = reader.nextInt();
+            } while (x < 1 || x > 10); 
+            do { 
+                System.out.println(" Ingresa la coordenada Y (1-10): ");
+                y = reader.nextInt();
+            } while (y < 1 || y > 10);
+
+            barcoColocado = myController.colocarBarcoPersonalizado(x-1, y-1, longitudBarco, orientacion);
+            myController.colocarBarcoPersonalizadoMaquina(longitudBarco, orientacion);
+
+        }while(!barcoColocado);
+
     }
 
     public static void ataqueHumano(){
@@ -167,7 +229,6 @@ public class Ejecutable {
         String mensaje = myController.ataqueMaquina();
         System.out.println(mensaje);
     }
-      
 
     public static boolean evaluarFinPartida(){
         if(myController.evaluarFinPartida()){
@@ -176,7 +237,6 @@ public class Ejecutable {
         }
         return false;
     }
-
 
     public static void mostrarPartidasGanadas(){
         if (myController == null) {

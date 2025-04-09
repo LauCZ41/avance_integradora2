@@ -20,6 +20,11 @@ public class Jugador{
         return myTablero.colocarBarco(barco);  
     }
 
+    public boolean addBarcoPersonalizado(int x, int y, int largoBarco, boolean orientacion){
+        Barco barco = new Barco(x, y, largoBarco, orientacion);
+        return myTablero.colocarBarcoPersonalizado(barco);
+    }
+
 
     public int[] generarCoordenadasAleatorias(TipoBarco tipoBarco, boolean orientacionFija) {
         int x, y;
@@ -29,6 +34,31 @@ public class Jugador{
             
         } while (!myTablero.validarPosBarcos(x, y, tipoBarco, orientacionFija));
         return new int[]{x, y};
+    }
+
+    public int[] generarCoordenadasAleatoriasPersonalizada(int largoBarco, boolean orientacion){
+        int x,y;
+        do { 
+            x = random.nextInt(10);
+            y = random.nextInt(10);
+        } while (!myTablero.validarPosBarcosPersonalizados(x, y, largoBarco, orientacion));
+        return new int[]{x, y};
+    }
+
+    public void colocarBarcoMaquinaPersonalizado(int largoBarco, boolean orientacion){
+        int[] coordenadas;
+        boolean colocado = false;
+    
+        while (!colocado) {
+            coordenadas = generarCoordenadasAleatoriasPersonalizada(largoBarco, orientacion);
+            int fila = coordenadas[0];
+            int columna = coordenadas[1];
+            //int columna, int fila, int casillasPersonalizada, boolean orientacion
+            Barco barco = new Barco(fila, columna, largoBarco, orientacion );
+            if (myTablero.colocarBarcoPersonalizado(barco)) { 
+                colocado = true;  
+            }
+        }
     }
 
     public void colocarBarcoAleatorio(TipoBarco tipoBarco, boolean orientacionFija) {

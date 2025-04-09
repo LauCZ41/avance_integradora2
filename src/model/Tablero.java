@@ -70,12 +70,51 @@ public class Tablero {
         }
     }
     
-
-
     public void addBarco(Barco barco){
         barcos.add(barco);
     }
 
+    public boolean validarPosBarcosPersonalizados(int fila, int columna, int largoBarco, boolean orientacion){
+        // limites tablero
+        if ((orientacion && (columna + largoBarco > TAMANO)) || (!orientacion && (fila + largoBarco > TAMANO))) {
+            return false; 
+        }
+    
+        // solaparse
+        for (int i = 0; i < largoBarco; i++) {
+            if (orientacion) { 
+                if (tablero[fila][columna + i] != 0) { 
+                    return false;
+                }
+            } else { // Barco vertical
+                if (tablero[fila + i][columna] != 0) { 
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean colocarBarcoPersonalizado(Barco barco){
+        int fila = barco.getFila();
+        int columna = barco.getColumna();
+        int largoBarco = barco.getLongitudBarcoPersonalizado();
+        boolean orientacion = barco.getorientacion();
+    
+        if (!validarPosBarcosPersonalizados(fila, columna, largoBarco, orientacion)) {
+            return false; 
+        }
+    
+        for (int i = 0; i < largoBarco; i++) {
+            if (orientacion) { 
+                tablero[fila][columna + i] = 1;
+            } else {
+                tablero[fila + i][columna] = 1;
+            }
+        }
+        barcos.add(barco); 
+        return true;
+    }
 
     public boolean validarPosBarcos(int fila, int columna, TipoBarco tipoBarco, boolean horizontal) {
         int largoBarco = tipoBarco.getLargoBarco();
@@ -122,7 +161,6 @@ public class Tablero {
         return true;
     }
     
-
     public void mostrarTablero() {
         for (int i = 0; i < TAMANO; i++) {
             for (int j = 0; j < TAMANO; j++) {
@@ -144,7 +182,6 @@ public class Tablero {
             System.out.println(); 
         }
     }
-    
 
     @Override
     public String toString() {

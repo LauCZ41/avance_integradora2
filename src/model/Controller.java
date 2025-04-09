@@ -15,6 +15,18 @@ public class Controller {
         return miJugadorHumano.addBarco(x, y, horientacion, tipoBarco);
     }
 
+    public boolean colocarBarcoPersonalizado(int x, int y, int largoBarco, boolean orientacion){
+        return miJugadorHumano.addBarcoPersonalizado(x, y, largoBarco, orientacion);
+    }
+
+    public void colocarBarcoPersonalizadoMaquina(int largoBarco, boolean orientacion){
+        miJugadorMaquina.colocarBarcoMaquinaPersonalizado(largoBarco, orientacion);
+    }
+
+    public void colocarBarcoMaquina(TipoBarco tipoBarco, boolean orientacionFija){
+        miJugadorMaquina.colocarBarcoAleatorio(tipoBarco, orientacionFija);
+    }
+
     public String ataqueHumano(int x, int y){
         return miJugadorMaquina.ataque(x, y);
     }
@@ -23,9 +35,6 @@ public class Controller {
         return miJugadorHumano.ataqueMaquina();
     }
 
-    public void colocarBarcoMaquina(TipoBarco tipoBarco, boolean orientacionFija){
-        miJugadorMaquina.colocarBarcoAleatorio(tipoBarco, orientacionFija);
-    }
 
     public void mostrarBarcosAtacados(){
         miJugadorMaquina.mostrarBarcosAtacados();

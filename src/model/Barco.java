@@ -7,6 +7,7 @@ public class Barco {
     private boolean  orientacion;
     private int[][] coordenadas;
     private boolean hundido = false;
+    private int casillasPersonalizada;   
 
     public Barco(int columna, int fila, TipoBarco tipoBarco, boolean orientacion){
         this.tipoBarco = tipoBarco;
@@ -28,6 +29,26 @@ public class Barco {
         }
     }
     // true = horizontal || false = vertical
+
+    public Barco(int columna, int fila, int casillasPersonalizada, boolean orientacion){
+        this.columna = columna;
+        this.fila = fila;
+        this.casillasPersonalizada=casillasPersonalizada;
+        this.orientacion=orientacion;
+
+        
+        coordenadas = new int[casillasPersonalizada][2];
+
+        for (int i = 0; i < casillasPersonalizada; i++) {
+            if (orientacion) { 
+                coordenadas[i][0] = columna + i;
+                coordenadas[i][1] = fila;
+            } else { 
+                coordenadas[i][0] = columna;
+                coordenadas[i][1] = fila + i;
+            }
+        }
+    }
 
     public boolean estaHundido(int[][] tablero) {
         if (hundido) return false; 
@@ -60,6 +81,9 @@ public class Barco {
     }
     public int[][] getCoordenadas(){
         return coordenadas; 
+    }
+    public int getLongitudBarcoPersonalizado(){
+        return casillasPersonalizada;
     }
     // set
     public void setFila(int newFila){
